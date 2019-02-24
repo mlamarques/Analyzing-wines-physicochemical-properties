@@ -35,6 +35,7 @@ white <- read.csv("winequality-white.csv", sep = ";")
 In this project I'm trying to identify what are the charactericstics of a good wine.
 
 I'm using the public dataset **Wine Quality Datasets** - P. Cortez, A. Cerdeira, F. Almeida, T. Matos and J. Reis. Modeling wine preferences by data mining from physicochemical properties. In Decision Support Systems, Elsevier, 47(4):547-553, 2009.
+It contains two datasets, one for red wines and another for white wines.
 
 [Here]("http://www3.dsi.uminho.pt/pcortez/wine/") you can find more information and the files used in this project.
 
@@ -61,31 +62,22 @@ This is an interesting [Vox video](https://www.youtube.com/watch?v=mVKuCbjFfIY) 
 
 # Data Analysis
 
-
-# Univariate Plots Section
-
-> **Tip**: In this section, you should perform some preliminary exploration of
-your dataset. Run some summaries of the data and create univariate plots to
-understand the structure of the individual variables in your dataset. Don't
-forget to add a comment after each plot or closely-related group of plots!
-There should be multiple code chunks and text sections; the first one below is
-just to help you get started.
+> Usin the white wine data set
 
 ```{r echo=FALSE, Univariate_Plots}
 
+summary(white)
+set.seed(1990)
+ggpairs(white[sample.int(nrow(white), 1000), ])
+
 ```
 
-> **Tip**: Make sure that you leave a blank line between the start / end of
-each code block and the end / start of your Markdown text so that it is
-formatted nicely in the knitted text. Note as well that text on consecutive
-lines is treated as a single space. Make sure you have a blank line between
-your paragraphs so that they too are formatted for easy readability.
+> **Tip** Most wines have a quality close to 6 and the best variable for quality correlation is alcohol.
 
-# Univariate Analysis
+```{r echo=FALSE, Bivariate_Plots}
 
-> **Tip**: Now that you've completed your univariate explorations, it's time to
-reflect on and summarize what you've found. Use the questions below to help you
-gather your observations and add your own if you have other thoughts!
+
+```
 
 ### What is the structure of your dataset?
 
