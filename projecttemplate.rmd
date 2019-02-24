@@ -23,12 +23,14 @@ library(ggplot2)
 library(GGally)
 library(tidyr)
 library(purrr)
+library(gridExtra)
 
 ```
 
 ```{r echo=FALSE, Load_the_Data}
 # Load the Data
 white <- read.csv("winequality-white.csv", sep = ";")
+red <- read.csv("winequality-red.csv", sep = ";")
 ```
 # Introduction
 
@@ -67,26 +69,38 @@ This is an interesting [Vox video](https://www.youtube.com/watch?v=mVKuCbjFfIY) 
 ```{r echo=FALSE, Univariate_Plots}
 
 summary(white)
-set.seed(1990)
-ggpairs(white[sample.int(nrow(white), 1000), ])
+cor(white[,2:12], white$quality)
+
+white %>%
+  keep(is.numeric) %>%                     # Keep only numeric columns
+  gather() %>%                             # Convert to key-value pairs
+  ggplot(aes(value)) +                     # Plot the values
+  facet_wrap(~ key, scales = "free") +   # In separate panels
+  geom_density() 
+
+ggplot(aes(x = quality), data = white) +
+  geom_bar(fill = "#8989ff") +
+  geom_vline(xintercept = median(white$quality), color = "red")
 
 ```
 
-> **Tip** Most wines have a quality close to 6 and the best variable for quality correlation is alcohol.
+> Most wines have a quality of 6 and the best variable for quality correlation is alcohol.
 
-```{r echo=FALSE, Bivariate_Plots}
+Let's create a new column with the quality values as labels so we can create a boxplot by quality.
+```
+white$scale <- as.factor(white$quality)
+```
+```{r echo=FALSE, alcohol}
 
+white$scale <- as.factor(white$quality)
+
+ggplot(data=white, aes(x = scale, y = alcohol)) +
+    geom_boxplot()
 
 ```
 
-### What is the structure of your dataset?
+There is a clear indication of the correlation of alcohol and quality above the score of 6 
 
-### What is/are the main feature(s) of interest in your dataset?
-
-### What other features in the dataset do you think will help support your \
-investigation into your feature(s) of interest?
-
-### Did you create any new variables from existing variables in the dataset?
 
 ### Of the features you investigated, were there any unusual distributions? \
 Did you perform any operations on the data to tidy, adjust, or change the form \
@@ -101,7 +115,7 @@ yourself to relationships between a main output feature and one of the
 supporting variables. Try to look at relationships between supporting variables
 as well.
 
-```{r echo=FALSE, Bivariate_Plots}
+```{r echo=FALSE, 1}
 
 ```
 
