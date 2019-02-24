@@ -56,12 +56,11 @@ The dataset uses the measurements of 13 chemical constituents from [Vinho Verde 
 
 # considerations
 
-Wine certification assessed by sensory tests is very subjective and 
-interesting [Vox video](https://www.youtube.com/watch?v=mVKuCbjFfIY) about if expensive wines taste better.
+Wine certification assessed by sensory tests is very subjective, so it might be hard to find a clear correlation of the variables with the quality of the wine.
+This is an interesting [Vox video](https://www.youtube.com/watch?v=mVKuCbjFfIY) about wines taste and price.
 
 # Data Analysis
 
-> **test**: intesterst
 
 # Univariate Plots Section
 
