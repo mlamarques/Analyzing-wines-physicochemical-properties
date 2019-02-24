@@ -36,9 +36,9 @@ In this project I'm trying to identify what are the charactericstics of a good w
 
 I'm using the public dataset **Wine Quality Datasets** - P. Cortez, A. Cerdeira, F. Almeida, T. Matos and J. Reis. Modeling wine preferences by data mining from physicochemical properties. In Decision Support Systems, Elsevier, 47(4):547-553, 2009.
 
-[Here]() you can find more information and the files used in this project.
+[Here]("http://www3.dsi.uminho.pt/pcortez/wine/") you can find more information and the files used in this project.
 
-The dataset uses the measurements of 13 chemical constituents from Vinho Verde wines, a wine brand from the northwest region of Portugal.
+The dataset uses the measurements of 13 chemical constituents from [Vinho Verde Wines](http://www.vinhoverde.pt/), a wine brand from the northwest region of Portugal.
 
 ## Variables
 - Fixed acidity: g(tartaric acid)/dm3
@@ -52,7 +52,14 @@ The dataset uses the measurements of 13 chemical constituents from Vinho Verde w
 - pH
 - Sulphates:g(potassium sulphate)/dm3
 - Alcohol: % vol.
-- Quality: 1-10 scale
+- Quality:  evaluated  by  a  minimum  of  three  sensory assessors (using blind tastes), classified in a scale from 0 (very bad) to 10 (excellent). The final sensory score is the median of these evaluations.
+
+# considerations
+
+Wine certification assessed by sensory tests is very subjective and 
+interesting [Vox video](https://www.youtube.com/watch?v=mVKuCbjFfIY) about if expensive wines taste better.
+
+# Data Analysis
 
 > **test**: intesterst
 
