@@ -86,11 +86,13 @@ ggplot(aes(x = quality), data = white) +
 
 > Most wines have a quality of 6 and the best variable for quality correlation is alcohol.
 
+## Alcohol
+
 Let's create a new column with the quality values as labels so we can create a boxplot by quality.
 ```
 white$scale <- as.factor(white$quality)
 ```
-```{r echo=FALSE, alcohol}
+```{r echo=FALSE, message=FALSE, warning=FALSE, alcohol}
 
 white$scale <- as.factor(white$quality)
 
@@ -99,8 +101,21 @@ ggplot(data=white, aes(x = scale, y = alcohol)) +
 
 ```
 
-There is a clear indication of the correlation of alcohol and quality above the score of 6 
+> There is a clear indication of the correlation of alcohol and quality above the score of 6 
 
+
+## ggpairs
+
+using the ggpair function we can have a look on all the relations between the variables
+```{r echo=FALSE,  message=FALSE, warning=FALSE, ggpairs}
+
+
+set.seed(1990)
+ggpairs(white[sample.int(nrow(white), 1000), ]) ##TAKES SOME TIME DO RUN
+
+```
+
+inverse correlation between density and quality
 
 ### Of the features you investigated, were there any unusual distributions? \
 Did you perform any operations on the data to tidy, adjust, or change the form \
