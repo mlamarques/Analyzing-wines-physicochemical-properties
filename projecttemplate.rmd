@@ -121,13 +121,29 @@ ggpairs(white[sample.int(nrow(white), 1000), ]) ##TAKES SOME TIME DO RUN
 
 ggplot(aes(x = alcohol, y = density, color = scale), data = white) + 
   geom_point(position = 'jitter') +
-  scale_color_brewer(type = 'div') +
-  ylim(0.987,1.01) +
+  scale_color_brewer(type = 'div', guide = guide_legend(title = 'Quality')) +
+  ylim(0.987,1.003) +
   geom_smooth(method = 'lm', color = 'purple') +
-  ggtitle('Quality by alcohol and density')
+  ggtitle('Density by Alcohol and Quality')
 
 ```
-###
+R conclusion
+
+## residual.sugar x density
+
+```{r echo=FALSE,  message=FALSE, warning=FALSE, residual.sugar_x_density}
+
+ggplot(aes(x = residual.sugar, y = density, color = scale), data = white) +
+  geom_point(position = 'jitter') +
+  scale_color_brewer(type = 'div', guide = guide_legend(title = 'Quality')) +
+  xlim(0, 20) +  ylim(0.987,1.002) +
+  geom_smooth(method = 'lm', color = 'purple') +
+  ggtitle('Density by residual.sugar and Quality')
+
+```
+R conclusion
+
+####
 
 inverse correlation between density and quality
 
