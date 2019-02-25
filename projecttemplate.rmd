@@ -115,6 +115,20 @@ ggpairs(white[sample.int(nrow(white), 1000), ]) ##TAKES SOME TIME DO RUN
 
 ```
 
+## alcohol x density
+
+```{r echo=FALSE,  message=FALSE, warning=FALSE, alcohol_x_density}
+
+ggplot(aes(x = alcohol, y = density, color = scale), data = white) + 
+  geom_point(position = 'jitter') +
+  scale_color_brewer(type = 'div') +
+  ylim(0.987,1.01) +
+  geom_smooth(method = 'lm', color = 'purple') +
+  ggtitle('Quality by alcohol and density')
+
+```
+###
+
 inverse correlation between density and quality
 
 ### Of the features you investigated, were there any unusual distributions? \
