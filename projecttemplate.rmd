@@ -185,9 +185,8 @@ ggplot(aes(x = free.sulfur.dioxide, y = total.sulfur.dioxide, color = scale), da
 
 ```
 
-R conclusion
+In the third plot we have a small correlation and the quality of wines are more clumped together. But we can distinguish an area where there is a concentraion of most green dots, below the smooth line and 25 < free.sulfur.dioxide < 50. 
 
-inverse correlation between density and quality
 
 ### Of the features you investigated, were there any unusual distributions? \
 Did you perform any operations on the data to tidy, adjust, or change the form \
