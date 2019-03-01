@@ -62,13 +62,17 @@ The dataset uses the measurements of 13 chemical constituents from [Vinho Verde 
 Wine certification assessed by sensory tests is very subjective, so it might be hard to find a clear correlation of the variables with the quality of the wine.
 This is an interesting [Vox video](https://www.youtube.com/watch?v=mVKuCbjFfIY) about wines taste and price.
 
+For this project I will use the white wine (winequality-white.csv) dataset.
+
 # Data Analysis
 
-> Usin the white wine data set
+ White Wine Dataset
 
 ```{r echo=FALSE, Univariate_Plots}
 
 summary(white)
+str(white)
+head(white)
 cor(white[,2:12], white$quality)
 
 white %>%
@@ -88,6 +92,7 @@ ggplot(aes(x = quality), data = white) +
 
 ## Alcohol
 
+
 Let's create a new column with the quality values as labels so we can create a boxplot by quality.
 ```
 white$scale <- as.factor(white$quality)
@@ -97,25 +102,45 @@ white$scale <- as.factor(white$quality)
 white$scale <- as.factor(white$quality)
 
 ggplot(data=white, aes(x = scale, y = alcohol)) +
-    geom_boxplot()
+  geom_boxplot() +
+  xlab("Quality")
 
 ```
 
 > There is a clear indication of the correlation of alcohol and quality above the score of 6 
 
 
+### Alcohol x Quality:
+```{r echo=FALSE, message=FALSE, warning=FALSE, alcohol2}
+
+ggplot(aes(x = scale, y = alcohol), data = white) +
+    geom_point(position = 'jitter', color = "#46003d", alpha = 1/5) +
+    geom_smooth(method='lm', aes(group = 1), color = "cyan") +
+    xlab("Wine Quality") +
+    ylab("Alcohol")
+
+```
+
+### Alcohol and Quality Correlation:
+
+```{r echo=FALSE}
+cor(white$alcohol, white$quality)
+
+```
+
 ## ggpairs
 
 using the ggpair function we can have a look on all the relations between the variables
-```{r echo=FALSE,  message=FALSE, warning=FALSE, ggpairs}
 
+```{r echo=FALSE,  message=FALSE, warning=FALSE, ggpairs}
+#space
 
 set.seed(1990)
 ggpairs(white[sample.int(nrow(white), 1000), ]) ##TAKES SOME TIME DO RUN
 
 ```
 
-## alcohol x density
+## First Plot
 
 ```{r echo=FALSE,  message=FALSE, warning=FALSE, alcohol_x_density}
 
@@ -127,9 +152,11 @@ ggplot(aes(x = alcohol, y = density, color = scale), data = white) +
   ggtitle('Density by Alcohol and Quality')
 
 ```
+
 R conclusion
 
-## residual.sugar x density
+
+## Second Plot
 
 ```{r echo=FALSE,  message=FALSE, warning=FALSE, residual.sugar_x_density}
 
@@ -141,9 +168,24 @@ ggplot(aes(x = residual.sugar, y = density, color = scale), data = white) +
   ggtitle('Density by residual.sugar and Quality')
 
 ```
+
 R conclusion
 
-####
+## Third Plot
+
+```{r echo=FALSE,  message=FALSE, warning=FALSE, totalSO2_x_freeSO2}
+
+ggplot(aes(x = free.sulfur.dioxide, y = total.sulfur.dioxide, color = scale), data = white) + 
+  geom_point(position = 'jitter') +
+  xlim(0, 100) +
+  ylim(0, 280) +
+  scale_color_brewer(type = 'div', guide = guide_legend(title = 'Quality')) +
+  geom_smooth(method = 'lm', color = 'purple') +
+  ggtitle('Total.sulfur.dioxide by free.sulfur.dioxide and Quality')
+
+```
+
+R conclusion
 
 inverse correlation between density and quality
 
