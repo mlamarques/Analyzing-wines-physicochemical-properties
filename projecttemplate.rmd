@@ -153,7 +153,7 @@ ggplot(aes(x = alcohol, y = density, color = scale), data = white) +
 
 ```
 
-R conclusion
+In this plot an inverse correlation between density and alcohol, where the best quality tend to have more alcohol and be less dense.
 
 
 ## Second Plot
@@ -169,7 +169,7 @@ ggplot(aes(x = residual.sugar, y = density, color = scale), data = white) +
 
 ```
 
-R conclusion
+In the second plot we can see the density and residual.sugar correlation. There is a nice distinction of colors, separate by the smooth line. Most higher quality wines are below the line.
 
 ## Third Plot
 
