@@ -1,5 +1,6 @@
-Analyzing wines physicochemical properties by Marcos Alves
-========================================================
+# Analyzing wines physicochemical properties by Marcos Alves
+
+***
 
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE, packages}
@@ -185,8 +186,8 @@ In the third plot, we have a small correlation and the quality of wines are more
 
 # Reflection
 
-Even though the dataset is not so large and wine quality classification is very subjective, there are some correlations between the physicochemical properties that we can notice. The most noticeable is the alcohol %. Higher quality wines have a higher percentage of alcohol, which is correlated with lower density and a lower residual sugar proportion. All of these features must have a considerable impact on the color, smell, and taste of the wine.
+These are only the most noticeable physical features that could influence the quality of white wines found on this dataset. There are many other variables that could have an influence on the quality of a wine. I used the ggpairs function to help me find the most relevant features.
 
-These are only the most noticeable physical features that could influence the quality of white wines found on this dataset. There are many other variables that could have an influence on the quality of a wine. 
+Even though the dataset is not so large and wine quality classification is very subjective, there are some correlations between the physicochemical properties that we can notice. The most noticeable is the alcohol %. Higher quality wines have a higher percentage of alcohol, which is correlated with lower density and a lower residual sugar proportion. All of these features must have a considerable impact on the color, smell, and taste of the wine.
 
 In addition to this project, it would be interesting to use some machine learning algorithm to analyze this dataset and also analyze the red wine dataset for comparison.
