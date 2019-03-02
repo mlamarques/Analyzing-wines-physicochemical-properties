@@ -1,10 +1,6 @@
 Analyzing wines physicochemical properties by Marcos Alves
 ========================================================
 
-> **Tip**: You will see quoted sections like this throughout the template to
-help you construct your report. Make sure that you remove these notes before
-you finish and submit your project!
-
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE, packages}
 # Load all of the packages that you end up using in your analysis in this code
@@ -34,7 +30,7 @@ red <- read.csv("winequality-red.csv", sep = ";")
 ```
 # Introduction
 
-In this project I'm trying to identify what are the charactericstics of a good wine.
+In this project, I'm trying to identify what are the characteristics of good wine.
 
 I'm using the public dataset **Wine Quality Datasets** - P. Cortez, A. Cerdeira, F. Almeida, T. Matos and J. Reis. Modeling wine preferences by data mining from physicochemical properties. In Decision Support Systems, Elsevier, 47(4):547-553, 2009.
 It contains two datasets, one for red wines and another for white wines.
@@ -55,14 +51,14 @@ The dataset uses the measurements of 13 chemical constituents from [Vinho Verde 
 - pH
 - Sulphates:g(potassium sulphate)/dm3
 - Alcohol: % vol.
-- Quality:  evaluated  by  a  minimum  of  three  sensory assessors (using blind tastes), classified in a scale from 0 (very bad) to 10 (excellent). The final sensory score is the median of these evaluations.
+- Quality:  evaluated by a minimum of three sensory assessors (using blind tastes), classified in a scale from 0 (very bad) to 10 (excellent). The final sensory score is the median of these evaluations.
 
-# considerations
+# Considerations
 
 Wine certification assessed by sensory tests is very subjective, so it might be hard to find a clear correlation of the variables with the quality of the wine.
 This is an interesting [Vox video](https://www.youtube.com/watch?v=mVKuCbjFfIY) about wines taste and price.
 
-For this project I will use the white wine (winequality-white.csv) dataset.
+For this project, I will use the white wine (winequality-white.csv) dataset.
 
 # Data Analysis
 
@@ -153,7 +149,7 @@ ggplot(aes(x = alcohol, y = density, color = scale), data = white) +
 
 ```
 
-In this plot an inverse correlation between density and alcohol, where the best quality tend to have more alcohol and be less dense.
+In this plot an inverse correlation between density and alcohol, where the best quality tends to have more alcohol and be less dense.
 
 
 ## Second Plot
@@ -169,7 +165,7 @@ ggplot(aes(x = residual.sugar, y = density, color = scale), data = white) +
 
 ```
 
-In the second plot we can see the density and residual.sugar correlation. There is a nice distinction of colors, separate by the smooth line. Most higher quality wines are below the line.
+In the second plot, we can see the density and residual.sugar correlation. There is a nice distinction of colors, separate by the smooth line. Most higher quality wines are below the line.
 
 ## Third Plot
 
@@ -185,12 +181,12 @@ ggplot(aes(x = free.sulfur.dioxide, y = total.sulfur.dioxide, color = scale), da
 
 ```
 
-In the third plot we have a small correlation and the quality of wines are more clumped together. But we can distinguish an area where there is a concentraion of most green dots, below the smooth line and 25 < free.sulfur.dioxide < 50. 
+In the third plot, we have a small correlation and the quality of wines are more clumped together. But we can distinguish an area where there is a concentration of most green dots, below the smooth line and 25 < free.sulfur.dioxide < 50. 
 
 # Reflection
 
-Eventhough the daset is not so large and wine quality classification is very subjective, there is some correlations between the physicochemical properties that we can notice.The most noticeble is the alcohol %. Higher quality wines have a higher percentage of alcohol, which is corralated with lower density and a lower residual sugar proportion. All of this features must have a considerable impact in the color, smell and taste of the wine.
+Even though the dataset is not so large and wine quality classification is very subjective, there are some correlations between the physicochemical properties that we can notice. The most noticeable is the alcohol %. Higher quality wines have a higher percentage of alcohol, which is correlated with lower density and a lower residual sugar proportion. All of these features must have a considerable impact on the color, smell, and taste of the wine.
 
-These are only the most notible physical features that could influence the quality of white wines find in this daset. There are many other variables that could have influence in the quality of a wine. 
+These are only the most noticeable physical features that could influence the quality of white wines found on this dataset. There are many other variables that could have an influence on the quality of a wine. 
 
-In addition to this project, it would be interesting to use some machine learning algorithm to analyze this dataset and also analyze the red wine dataset for comparerison.
+In addition to this project, it would be interesting to use some machine learning algorithm to analyze this dataset and also analyze the red wine dataset for comparison.
