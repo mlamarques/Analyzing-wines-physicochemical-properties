@@ -185,6 +185,37 @@ ggplot(data=white, aes(x = scale, y = pH)) +
 ```
 There is a slight increase in pH as quality gets higher
 
+### Free sulfur dioxide:
+```{r echo=FALSE, message=FALSE, warning=FALSE, free.sulfur.dioxide}
+
+ggplot(data=white, aes(x = scale, y = free.sulfur.dioxide)) +
+  geom_boxplot() +
+  ylim(0,150) +
+  xlab("Free sulfur dioxide")
+
+```
+The values of this variable seems to be relatively close across the ratings above 4, slightly lower for the highest quality.
+
+### Chlorides:
+```{r echo=FALSE, message=FALSE, warning=FALSE, chlorides}
+
+ggplot(data=white, aes(x = scale, y = chlorides)) +
+  geom_boxplot() +
+  
+  xlab("Chlorides")
+
+```
+It doesn't seem to have some good distinction between the variables.
+
+```{r echo=FALSE, hist_chlorides}
+
+ggplot(aes(x = chlorides), data = white) +
+  geom_bar(fill = "#1ab385", binwidth = .001) +
+  geom_vline(xintercept = median(white$chlorides), color = "orange")
+
+```
+This variable has low variance, so I'm not using it for the analysis of quality.
+
 ## First Plot
 
 ```{r echo=FALSE,  message=FALSE, warning=FALSE, alcohol_x_density}
