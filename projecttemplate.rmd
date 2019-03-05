@@ -175,6 +175,8 @@ ggpairs(white[sample.int(nrow(white), 1000), ]) ##TAKES SOME TIME DO RUN
 
 ```
 
+## Bivariate
+
 ### pH x Quality:
 ```{r echo=FALSE, message=FALSE, warning=FALSE, pH}
 
@@ -216,7 +218,9 @@ ggplot(aes(x = chlorides), data = white) +
 ```
 This variable has low variance, so I'm not using it for the analysis of quality.
 
-## First Plot
+## Multivariate
+
+### First Plot
 
 ```{r echo=FALSE,  message=FALSE, warning=FALSE, alcohol_x_density}
 
@@ -262,6 +266,21 @@ ggplot(aes(x = free.sulfur.dioxide, y = total.sulfur.dioxide, color = scale), da
 ```
 
 In the third plot, we have a small correlation and the quality of wines are more clumped together. But we can distinguish an area where there is a concentration of most green dots, below the smooth line and 25 < free.sulfur.dioxide < 50. 
+
+### Fourth Plot
+
+```{r echo=FALSE,  message=FALSE, warning=FALSE, alcohol_x_pH}
+
+ggplot(aes(x = alcohol, y = pH, color = scale), data = white) + 
+  geom_point(position = 'jitter') +
+  scale_color_brewer(type = 'div', guide = guide_legend(title = 'Quality')) +
+ # ylim(0.987,1.003)
+  geom_smooth(method = 'lm', color = '#c32148') +
+  ggtitle('pH by Alcohol and Quality')
+
+```
+In the fourth plot, the correlation between pH and alcohol is almost inexisting, and the quality is guided mainly by the alcohol quantity.
+
 
 # Reflection
 
