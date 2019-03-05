@@ -36,7 +36,7 @@ In this project, I'm trying to identify what are the characteristics of good win
 I'm using the public dataset **Wine Quality Datasets** - P. Cortez, A. Cerdeira, F. Almeida, T. Matos and J. Reis. Modeling wine preferences by data mining from physicochemical properties. In Decision Support Systems, Elsevier, 47(4):547-553, 2009.
 It contains two datasets, one for red wines and another for white wines.
 
-[Here]("http://www3.dsi.uminho.pt/pcortez/wine/") you can find more information and the files used in this project.
+[Here](http://www3.dsi.uminho.pt/pcortez/wine/) you can find more information and the files used in this project.
 
 The dataset uses the measurements of 13 chemical constituents from [Vinho Verde Wines](http://www.vinhoverde.pt/), a wine brand from the northwest region of Portugal.
 
