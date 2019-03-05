@@ -84,9 +84,9 @@ This is the structure of the dataset
 head(white)
 
 ```
-This is the first 5 rows of each variable
+These are the first 6 rows of each variable
 
-```{r echo=FALSE, correlation quality}
+```{r echo=FALSE, correlation_quality}
 
 cor(white[,2:12], white$quality)
 
@@ -105,6 +105,8 @@ white %>%
 ```
 The density of all the variable
 
+
+
 ```{r echo=FALSE, Univariate_Plots}
 
 ggplot(aes(x = quality), data = white) +
@@ -118,7 +120,7 @@ Most wines have a quality of 6 and the best variable for quality correlation is 
 
 ## Alcohol
 
-```{r echo=FALSE, hist_alcohol}
+```{r echo=FALSE, message=FALSE, warning=FALSE, hist_alcohol}
 
 ggplot(aes(x = alcohol), data = white) +
   geom_bar(fill = "#1ab385", binwidth = .05) +
@@ -128,7 +130,8 @@ ggplot(aes(x = alcohol), data = white) +
 
 The histogram of alcohol
 
-### Let's create a new column with the quality values as labels so we can create a boxplot by quality.
+> Let's create a new column with the quality values as labels so we can create a boxplot by quality.
+
 ```
 white$scale <- as.factor(white$quality)
 ```
@@ -136,8 +139,16 @@ white$scale <- as.factor(white$quality)
 
 white$scale <- as.factor(white$quality)
 
-ggplot(data=white, aes(x = scale, y = alcohol)) +
-  geom_boxplot() +
+ggplot(aes(factor(quality), 
+            alcohol), 
+        data = white) +
+  geom_jitter( alpha = .3)  +
+  geom_boxplot( alpha = .5,color = 'blue')+
+  stat_summary(fun.y = "mean", 
+               geom = "point", 
+               color = "red", 
+               shape = 8, 
+               size = 4) +
   xlab("Quality")
 
 ```
@@ -177,46 +188,110 @@ ggpairs(white[sample.int(nrow(white), 1000), ]) ##TAKES SOME TIME DO RUN
 
 ## Bivariate
 
+### Citric Acid x Quality:
+```{r echo=FALSE, message=FALSE, warning=FALSE, citric.acid}
+
+ggplot(aes(factor(quality), 
+            citric.acid), 
+        data = white) +
+  geom_jitter( alpha = .3)  +
+  geom_boxplot( alpha = .5,color = 'green')+
+  stat_summary(fun.y = "mean", 
+               geom = "point", 
+               color = "blue", 
+               shape = 8, 
+               size = 4) +
+  xlab("Quality") +
+  ylim(0, 1)
+
+```
+
+Most values of Citric Acid are in the same range, but in the score of 9 it seem to be a bit higher.
+
+### Free sulfur dioxide x Quality:
+```{r echo=FALSE, message=FALSE, warning=FALSE, freesulfurdioxide}
+
+ggplot(aes(factor(quality), 
+            free.sulfur.dioxide), 
+        data = white) +
+  geom_jitter( alpha = .3, color = "orange")  +
+  geom_boxplot( alpha = .5,color = 'blue')+
+  stat_summary(fun.y = "mean", 
+               geom = "point", 
+               color = "red", 
+               shape = 8, 
+               size = 4) +
+  xlab("Quality") +
+  ylim(0,150)
+
+```
+
+Values above the quality of four are close to 40. There are a few outliers with hight values of free SO2 for the quality of 3, so I ajust the y axis to have a better view where most of the values are. It also seems that the value of free SO2 has a small decrease above the quality of 8.
+
 ### pH x Quality:
 ```{r echo=FALSE, message=FALSE, warning=FALSE, pH}
 
 ggplot(data=white, aes(x = scale, y = pH)) +
   geom_boxplot() +
+  stat_summary(fun.y = "mean", 
+               geom = "point", 
+               color = "red", 
+               shape = 8, 
+               size = 4) +
   xlab("Quality")
 
 ```
+
 There is a slight increase in pH as quality gets higher
 
-### Free sulfur dioxide:
+
+### Volatile Acidity:
 ```{r echo=FALSE, message=FALSE, warning=FALSE, free.sulfur.dioxide}
 
-ggplot(data=white, aes(x = scale, y = free.sulfur.dioxide)) +
-  geom_boxplot() +
-  ylim(0,150) +
-  xlab("Free sulfur dioxide")
+ggplot(data=white, aes(x = scale, y = volatile.acidity)) +
+  geom_jitter( alpha = .3, color = "orange")  +
+  geom_boxplot( alpha = .5,color = 'blue')+
+  stat_summary(fun.y = "mean", 
+               geom = "point", 
+               color = "red", 
+               shape = 8, 
+               size = 4) +
+  xlab("Quality")
+
 
 ```
-The values of this variable seems to be relatively close across the ratings above 4, slightly lower for the highest quality.
+
+For Volatile Acidity, most values are around 25 for the values of quality above 4.
+
 
 ### Chlorides:
 ```{r echo=FALSE, message=FALSE, warning=FALSE, chlorides}
 
 ggplot(data=white, aes(x = scale, y = chlorides)) +
-  geom_boxplot() +
-  
-  xlab("Chlorides")
+  geom_jitter( alpha = .3, color = "orange")  +
+  geom_boxplot( alpha = .5,color = 'blue')+
+  stat_summary(fun.y = "mean", 
+               geom = "point", 
+               color = "red", 
+               shape = 8, 
+               size = 4) +
+  xlab("Quality")
 
 ```
-It doesn't seem to have some good distinction between the variables.
 
-```{r echo=FALSE, hist_chlorides}
+Chlorides seem to decrease as quality increases, though in a small proportion.
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, hist_chlorides}
 
 ggplot(aes(x = chlorides), data = white) +
   geom_bar(fill = "#1ab385", binwidth = .001) +
   geom_vline(xintercept = median(white$chlorides), color = "orange")
 
 ```
-This variable has low variance, so I'm not using it for the analysis of quality.
+
+This variable has low variance.
+
 
 ## Multivariate
 
@@ -279,6 +354,7 @@ ggplot(aes(x = alcohol, y = pH, color = scale), data = white) +
   ggtitle('pH by Alcohol and Quality')
 
 ```
+
 In the fourth plot, the correlation between pH and alcohol is almost inexisting, and the quality is guided mainly by the alcohol quantity.
 
 ### Fifth Plot
@@ -289,10 +365,10 @@ ggplot(aes(x = density, y = pH, color = scale), data = white) +
   geom_point(position = 'jitter') +
   scale_color_brewer(type = 'div', guide = guide_legend(title = 'Quality')) +
   xlim(0.987,1.003)
-  #geom_smooth(method = 'lm', color = '#c32148')
   ggtitle('pH by Density and Quality')
 
 ```
+
 In this plot we can see againg that pH has almost no effect in the quality of wines.
 
 
