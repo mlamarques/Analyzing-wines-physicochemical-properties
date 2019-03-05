@@ -62,15 +62,38 @@ This is an interesting [Vox video](https://www.youtube.com/watch?v=mVKuCbjFfIY) 
 For this project, I will use the white wine (winequality-white.csv) dataset.
 
 # Data Analysis
+## White Wine Dataset
 
- White Wine Dataset
 
-```{r echo=FALSE, Univariate_Plots}
+```{r echo=FALSE, summary}
 
 summary(white)
+
+```
+Dataset summary
+
+```{r echo=FALSE, Structure}
+
 str(white)
+
+```
+This is the structure of the dataset
+
+```{r echo=FALSE, Head}
+
 head(white)
+
+```
+This is the first 5 rows of each variable
+
+```{r echo=FALSE, correlation quality}
+
 cor(white[,2:12], white$quality)
+
+```
+The correlation between each variable and quality 
+
+```{r echo=FALSE, Density}
 
 white %>%
   keep(is.numeric) %>%                     # Keep only numeric columns
@@ -79,16 +102,31 @@ white %>%
   facet_wrap(~ key, scales = "free") +   # In separate panels
   geom_density() 
 
+```
+The density of all the variable
+
+```{r echo=FALSE, Univariate_Plots}
+
 ggplot(aes(x = quality), data = white) +
   geom_bar(fill = "#8989ff") +
   geom_vline(xintercept = median(white$quality), color = "red")
 
 ```
 
-> Most wines have a quality of 6 and the best variable for quality correlation is alcohol.
+Most wines have a quality of 6 and the best variable for quality correlation is alcohol.
+
 
 ## Alcohol
 
+```{r echo=FALSE, hist_alcohol}
+
+ggplot(aes(x = alcohol), data = white) +
+  geom_bar(fill = "#1ab385", binwidth = .05) +
+  geom_vline(xintercept = median(white$alcohol), color = "orange")
+
+```
+
+The histogram of alcohol
 
 Let's create a new column with the quality values as labels so we can create a boxplot by quality.
 ```
