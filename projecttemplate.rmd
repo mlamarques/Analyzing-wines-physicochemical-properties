@@ -281,6 +281,20 @@ ggplot(aes(x = alcohol, y = pH, color = scale), data = white) +
 ```
 In the fourth plot, the correlation between pH and alcohol is almost inexisting, and the quality is guided mainly by the alcohol quantity.
 
+### Fifth Plot
+
+```{r echo=FALSE,  message=FALSE, warning=FALSE, density_x_pH}
+
+ggplot(aes(x = density, y = pH, color = scale), data = white) + 
+  geom_point(position = 'jitter') +
+  scale_color_brewer(type = 'div', guide = guide_legend(title = 'Quality')) +
+  xlim(0.987,1.003)
+  #geom_smooth(method = 'lm', color = '#c32148')
+  ggtitle('pH by Density and Quality')
+
+```
+In this plot we can see againg that pH has almost no effect in the quality of wines.
+
 
 # Reflection
 
