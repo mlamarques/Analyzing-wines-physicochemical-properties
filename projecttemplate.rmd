@@ -246,8 +246,8 @@ cor(white[,2:12], white$pH)
 ggplot(aes(x = residual.sugar, y = pH), data = white) +
     geom_point(position = 'jitter', color = "#46003d", alpha = 1/5) +
     geom_smooth(method='lm', aes(group = 1), color = "cyan") +
-    xlim(0, 25)
-    xlab("residual.sugar") +
+    xlim(0, 25) +
+    xlab("residual sugar") +
     ylab("pH")
 
 ```
@@ -423,7 +423,7 @@ In the fourth plot, the correlation between pH and alcohol is almost inexisting,
 ggplot(aes(x = density, y = pH, color = scale), data = white) + 
   geom_point(position = 'jitter') +
   scale_color_brewer(type = 'div', guide = guide_legend(title = 'Quality')) +
-  xlim(0.987,1.003)
+  xlim(0.987,1.003) +
   ggtitle('pH by Density and Quality')
 
 ```
