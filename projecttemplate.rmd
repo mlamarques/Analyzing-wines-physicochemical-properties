@@ -93,19 +93,6 @@ cor(white[,2:12], white$quality)
 ```
 The correlation between each variable and quality 
 
-```{r echo=FALSE, Density}
-
-white %>%
-  keep(is.numeric) %>%                     # Keep only numeric columns
-  gather() %>%                             # Convert to key-value pairs
-  ggplot(aes(value)) +                     # Plot the values
-  facet_wrap(~ key, scales = "free") +   # In separate panels
-  geom_density() 
-
-```
-The density of all the variable
-
-
 
 ```{r echo=FALSE, Univariate_Plots}
 
@@ -116,6 +103,89 @@ ggplot(aes(x = quality), data = white) +
 ```
 
 Most wines have a quality of 6 and the best variable for quality correlation is alcohol.
+
+## Histograms
+
+```{r echo=FALSE, hist_volatile.acidity}
+
+ggplot(aes(x = volatile.acidity), data = white) +
+  geom_bar(fill = "#8989ff", binwidth = .005) +
+  geom_vline(xintercept = median(white$volatile.acidity), color = "red")
+
+```
+
+
+```{r echo=FALSE, hist_citric.acid}
+
+ggplot(aes(x = citric.acid), data = white) +
+  geom_bar(fill = "#8989ff") +
+  geom_vline(xintercept = median(white$citric.acid), color = "red")
+
+```
+
+
+```{r echo=FALSE, hist_residual.sugar}
+
+ggplot(aes(x = residual.sugar), data = white) +
+  geom_bar(fill = "#8989ff") +
+  geom_vline(xintercept = median(white$residual.sugar), color = "red")
+
+```
+
+
+```{r echo=FALSE, hist_chlorides}
+
+ggplot(aes(x = chlorides), data = white) +
+  geom_bar(fill = "#8989ff") +
+  geom_vline(xintercept = median(white$chlorides), color = "red")
+
+```
+
+
+```{r echo=FALSE, hist_free.sulfur.dioxide}
+
+ggplot(aes(x = free.sulfur.dioxide), data = white) +
+  geom_bar(fill = "#8989ff") +
+  geom_vline(xintercept = median(white$free.sulfur.dioxide), color = "red")
+
+```
+
+
+```{r echo=FALSE, hist_total.sulfur.dioxide}
+
+ggplot(aes(x = total.sulfur.dioxide), data = white) +
+  geom_bar(fill = "#8989ff") +
+  geom_vline(xintercept = median(white$total.sulfur.dioxide), color = "red")
+
+```
+
+
+```{r echo=FALSE, hist_density}
+
+ggplot(aes(x = density), data = white) +
+  geom_bar(fill = "#8989ff") +
+  geom_vline(xintercept = median(white$density), color = "red") +
+  xlim(.987, 1)
+
+```
+
+
+```{r echo=FALSE, hist_pH}
+
+ggplot(aes(x = pH), data = white) +
+  geom_bar(fill = "#8989ff") +
+  geom_vline(xintercept = median(white$pH), color = "red")
+
+```
+
+
+```{r echo=FALSE, hist_sulphates}
+
+ggplot(aes(x = sulphates), data = white) +
+  geom_bar(fill = "#8989ff") +
+  geom_vline(xintercept = median(white$sulphates), color = "red")
+
+```
 
 
 ## Alcohol
@@ -232,7 +302,8 @@ Values above the quality of four are close to 40. There are a few outliers with 
 ```{r echo=FALSE, message=FALSE, warning=FALSE, pH}
 
 ggplot(data=white, aes(x = scale, y = pH)) +
-  geom_boxplot() +
+  geom_jitter( alpha = .3, color = "orange")  +
+  geom_boxplot( alpha = .5,color = 'blue') +
   stat_summary(fun.y = "mean", 
                geom = "point", 
                color = "red", 
@@ -290,8 +361,21 @@ ggplot(aes(x = chlorides), data = white) +
 
 ```
 
-This variable has low variance.
+Chlorides variable has low variance.
 
+### Residual Sugar x Chlorides
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, residual.sugar_x_chlorides}
+
+ggplot(aes(x = chlorides, y = residual.sugar), data = white) +
+    geom_point(position = 'jitter', color = "#46003d", alpha = 1/5) +
+    geom_smooth(method='lm', aes(group = 1), color = "cyan") +
+    xlab("Chlorides") +
+    ylab("Residual Sugar") +
+  ylim(0, 30)
+  
+
+```
 
 ## Multivariate
 
