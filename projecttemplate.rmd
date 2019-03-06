@@ -94,98 +94,15 @@ cor(white[,2:12], white$quality)
 The correlation between each variable and quality 
 
 
-```{r echo=FALSE, Univariate_Plots}
+```{r echo=FALSE, message=FALSE, warning=FALSE, Univariate_Plots}
 
 ggplot(aes(x = quality), data = white) +
-  geom_bar(fill = "#1ab385") +
+  geom_bar(fill = "#8989ff") +
   geom_vline(xintercept = median(white$quality), color = "red")
 
 ```
 
 Most wines have a quality of 6 and the best variable for quality correlation is alcohol.
-
-## Histograms
-
-```{r echo=FALSE, message=FALSE, warning=FALSE, hist_volatile.acidity}
-
-ggplot(aes(x = volatile.acidity), data = white) +
-  geom_bar(fill = "#8989ff", binwidth = .005) +
-  geom_vline(xintercept = median(white$volatile.acidity), color = "red")
-
-```
-
-
-```{r echo=FALSE, message=FALSE, warning=FALSE, hist_citric.acid}
-
-ggplot(aes(x = citric.acid), data = white) +
-  geom_bar(fill = "#8989ff") +
-  geom_vline(xintercept = median(white$citric.acid), color = "red")
-
-```
-
-
-```{r echo=FALSE, message=FALSE, warning=FALSE, hist_residual.sugar}
-
-ggplot(aes(x = residual.sugar), data = white) +
-  geom_bar(fill = "#8989ff") +
-  geom_vline(xintercept = median(white$residual.sugar), color = "red")
-
-```
-
-
-```{r echo=FALSE, message=FALSE, warning=FALSE, hist_chlorides}
-
-ggplot(aes(x = chlorides), data = white) +
-  geom_bar(fill = "#8989ff") +
-  geom_vline(xintercept = median(white$chlorides), color = "red")
-
-```
-
-
-```{r echo=FALSE, message=FALSE, warning=FALSE, hist_free.sulfur.dioxide}
-
-ggplot(aes(x = free.sulfur.dioxide), data = white) +
-  geom_bar(fill = "#8989ff") +
-  geom_vline(xintercept = median(white$free.sulfur.dioxide), color = "red")
-
-```
-
-
-```{r echo=FALSE, message=FALSE, warning=FALSE, hist_total.sulfur.dioxide}
-
-ggplot(aes(x = total.sulfur.dioxide), data = white) +
-  geom_bar(fill = "#8989ff") +
-  geom_vline(xintercept = median(white$total.sulfur.dioxide), color = "red")
-
-```
-
-
-```{r echo=FALSE, message=FALSE, warning=FALSE, hist_density}
-
-ggplot(aes(x = density), data = white) +
-  geom_bar(fill = "#8989ff") +
-  geom_vline(xintercept = median(white$density), color = "red") +
-  xlim(.987, 1)
-
-```
-
-
-```{r echo=FALSE, message=FALSE, warning=FALSE, hist_pH}
-
-ggplot(aes(x = pH), data = white) +
-  geom_bar(fill = "#8989ff") +
-  geom_vline(xintercept = median(white$pH), color = "red")
-
-```
-
-
-```{r echo=FALSE, hist_sulphates}
-
-ggplot(aes(x = sulphates), data = white) +
-  geom_bar(fill = "#8989ff") +
-  geom_vline(xintercept = median(white$sulphates), color = "red")
-
-```
 
 
 ## Alcohol
@@ -316,7 +233,50 @@ ggplot(data=white, aes(x = scale, y = pH)) +
 There is a slight increase in pH as quality gets higher
 
 
-### Volatile Acidity:
+pH seems to have some correlation with quality, so let's see what variables might affect it:
+```{r echo=FALSE, message=FALSE, warning=FALSE, correlation_pH}
+
+cor(white[,2:12], white$pH)
+
+```
+
+### residual.sugar x pH:
+```{r echo=FALSE, message=FALSE, warning=FALSE, residual.sugar_x_pH}
+
+ggplot(aes(x = residual.sugar, y = pH), data = white) +
+    geom_point(position = 'jitter', color = "#46003d", alpha = 1/5) +
+    geom_smooth(method='lm', aes(group = 1), color = "cyan") +
+    xlim(0, 25)
+    xlab("residual.sugar") +
+    ylab("pH")
+
+```
+
+### citric.acid x pH:
+```{r echo=FALSE, message=FALSE, warning=FALSE, citric.acid_x_pH}
+
+ggplot(aes(x = citric.acid, y = pH), data = white) +
+    geom_point(position = 'jitter', color = "#46003d", alpha = 1/5) +
+    geom_smooth(method='lm', aes(group = 1), color = "cyan") +
+    xlab("Citric Acid") +
+    ylab("pH")
+
+```
+
+
+### sulphates x pH:
+```{r echo=FALSE, message=FALSE, warning=FALSE, sulphates_x_pH}
+
+ggplot(aes(x = chlorides, y = pH), data = white) +
+    geom_point(position = 'jitter', color = "#46003d", alpha = 1/5) +
+    geom_smooth(method='lm', aes(group = 1), color = "cyan") +
+    xlab("Chlorides") +
+    ylab("pH")
+
+```
+
+
+### Volatile Acidity x Quality:
 ```{r echo=FALSE, message=FALSE, warning=FALSE, free.sulfur.dioxide}
 
 ggplot(data=white, aes(x = scale, y = volatile.acidity)) +
@@ -332,10 +292,10 @@ ggplot(data=white, aes(x = scale, y = volatile.acidity)) +
 
 ```
 
-For Volatile Acidity, most values are around 25 for the values of quality above 4.
+For Volatile Acidity, the values are below 30 for the values of quality above 4.
 
 
-### Chlorides:
+### Chlorides x Quality:
 ```{r echo=FALSE, message=FALSE, warning=FALSE, chlorides}
 
 ggplot(data=white, aes(x = scale, y = chlorides)) +
@@ -352,7 +312,6 @@ ggplot(data=white, aes(x = scale, y = chlorides)) +
 
 
 ### Residual Sugar x Chlorides
-
 ```{r echo=FALSE, message=FALSE, warning=FALSE, residual.sugar_x_chlorides}
 
 ggplot(aes(x = chlorides, y = residual.sugar), data = white) +
@@ -397,6 +356,34 @@ ggplot(aes(x = residual.sugar, y = density, color = scale), data = white) +
 ```
 
 In the second plot, we can see the density and residual.sugar correlation. There is a nice distinction of colors, separate by the smooth line. Most higher quality wines are below the line.
+
+
+###  Sugar and pH
+
+```{r echo=FALSE,  message=FALSE, warning=FALSE, sugar_pH_quality}
+
+ggplot(aes(x = residual.sugar, y = pH, color = scale), data = white) + 
+  geom_point(position = 'jitter') +
+  scale_color_brewer(type = 'div', guide = guide_legend(title = 'Quality')) +
+  geom_smooth(method = 'lm', color = 'purple') +
+  xlim(0, 20) +
+  ggtitle('pH by Residual Sugar and Quality')
+
+```
+
+
+###  Citric Acid and pH
+
+```{r echo=FALSE,  message=FALSE, warning=FALSE, citric.acid_pH_quality}
+
+ggplot(aes(x = citric.acid, y = pH, color = scale), data = white) + 
+  geom_point(position = 'jitter') +
+  scale_color_brewer(type = 'div', guide = guide_legend(title = 'Quality')) +
+  geom_smooth(method = 'lm', color = 'purple') +
+  ggtitle('pH by Citric Acid and Quality')
+```
+
+Here we can see that there is a interval in the Citric Acid Above 0.25 and below 0.5 where the quality is higher and the pH doesn't interfere so much.
 
 ## Third Plot
 
