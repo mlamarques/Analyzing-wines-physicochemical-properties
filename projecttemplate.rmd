@@ -137,6 +137,7 @@ The correlation of the variables with quality shows that these variables don't h
 ```
 white$scale <- as.factor(white$quality)
 ```
+
 ```{r echo=FALSE, message=FALSE, warning=FALSE, alcohol}
 
 white$scale <- as.factor(white$quality)
@@ -155,11 +156,11 @@ ggplot(aes(factor(quality),
 
 ```
 
-
 > There is a clear indication of the correlation of alcohol and quality above the score of 6 
 
 
 ### Alcohol x Quality:
+
 ```{r echo=FALSE, message=FALSE, warning=FALSE, alcohol2}
 
 ggplot(aes(x = scale, y = alcohol), data = white) +
@@ -186,6 +187,17 @@ using the ggpair function we can have a look on all the relations between the va
 
 set.seed(1990)
 ggpairs(white[sample.int(nrow(white), 1000), ]) ##TAKES SOME TIME DO RUN
+
+```
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, Alcohol_x_density}
+
+ggplot(aes(x = density, y = alcohol), data = white) +
+    geom_point(position = 'jitter', color = "#46003d", alpha = 1/5) +
+    geom_smooth(method='lm', aes(group = 1), color = "cyan") +
+    xlim(0.987, 1.004) +
+    xlab("Density") +
+    ylab("Alcohol")
 
 ```
 
@@ -227,7 +239,7 @@ ggplot(aes(factor(quality),
 
 ```
 
-Values above the quality of four are close to 40. There are a few outliers with hight values of free SO2 for the quality of 3, so I ajust the y axis to have a better view where most of the values are. It also seems that the value of free SO2 has a small decrease above the quality of 8.
+Values above the quality of four are close to 35. There are a few outliers with hight values of free SO2 for the quality of 3, so I ajusted the y axis to have a better view where most of the values are. It also seems that the value of free SO2 has a small decrease above the quality of 8.
 
 ### pH x Quality:
 ```{r echo=FALSE, message=FALSE, warning=FALSE, pH}
@@ -246,15 +258,18 @@ ggplot(data=white, aes(x = scale, y = pH)) +
 
 There is a slight increase in pH as quality gets higher
 
-
 pH seems to have some correlation with quality, so let's see what variables might affect it:
+
 ```{r echo=FALSE, message=FALSE, warning=FALSE, correlation_pH}
 
 cor(white[,2:12], white$pH)
 
 ```
 
+All the correlations seem low.
+
 ### residual.sugar x pH:
+
 ```{r echo=FALSE, message=FALSE, warning=FALSE, residual.sugar_x_pH}
 
 ggplot(aes(x = residual.sugar, y = pH), data = white) +
@@ -266,7 +281,10 @@ ggplot(aes(x = residual.sugar, y = pH), data = white) +
 
 ```
 
+Here we can see the high peak from the Univariate analysis for the residual.sugar variable. This correlation looks weak.
+
 ### citric.acid x pH:
+
 ```{r echo=FALSE, message=FALSE, warning=FALSE, citric.acid_x_pH}
 
 ggplot(aes(x = citric.acid, y = pH), data = white) +
@@ -277,20 +295,24 @@ ggplot(aes(x = citric.acid, y = pH), data = white) +
 
 ```
 
+In this plot most values are around 0.3 in the Citric Acid axis and a few pontual values in the 0.5 and 0.75, creating the shape of a line.
 
 ### sulphates x pH:
+
 ```{r echo=FALSE, message=FALSE, warning=FALSE, sulphates_x_pH}
 
-ggplot(aes(x = chlorides, y = pH), data = white) +
+ggplot(aes(x = sulphates, y = pH), data = white) +
     geom_point(position = 'jitter', color = "#46003d", alpha = 1/5) +
     geom_smooth(method='lm', aes(group = 1), color = "cyan") +
-    xlab("Chlorides") +
+    xlab("Sulphates") +
     ylab("pH")
 
 ```
 
+In this plot the distribution of data looks a bit better. Maybe using another variable we'll be able to find some pattern.
 
 ### Volatile Acidity x Quality:
+
 ```{r echo=FALSE, message=FALSE, warning=FALSE, free.sulfur.dioxide}
 
 ggplot(data=white, aes(x = scale, y = volatile.acidity)) +
@@ -306,10 +328,10 @@ ggplot(data=white, aes(x = scale, y = volatile.acidity)) +
 
 ```
 
-For Volatile Acidity, the values are below 30 for the values of quality above 4.
-
+For Volatile Acidity, the values are below 30 for values of quality above 4, and the means look constant.
 
 ### Chlorides x Quality:
+
 ```{r echo=FALSE, message=FALSE, warning=FALSE, chlorides}
 
 ggplot(data=white, aes(x = scale, y = chlorides)) +
@@ -320,12 +342,15 @@ ggplot(data=white, aes(x = scale, y = chlorides)) +
                color = "red", 
                shape = 8, 
                size = 4) +
+  ylim(0, 0.1) +
   xlab("Quality")
 
 ```
 
+This plot has a small range of values for Chlorides, so I ajusted the y axis to have a better view. With this change, it is easier to see a decline in Chlorides as the quality increases. This corroborates with the early analysis of correlations, where this plot has a value of -0.21.
 
 ### Residual Sugar x Chlorides
+
 ```{r echo=FALSE, message=FALSE, warning=FALSE, residual.sugar_x_chlorides}
 
 ggplot(aes(x = chlorides, y = residual.sugar), data = white) +
@@ -337,6 +362,16 @@ ggplot(aes(x = chlorides, y = residual.sugar), data = white) +
   
 
 ```
+
+Here, the residual.sugar doesn't look to be affected by the Chlorides, where most of the data makes almost a vertical shape.
+
+***
+
+Using the Bivariate plots, the most distinct values of variables are found in the alcohol x quality plot. High quality values tend to have a high % of alcohol. Alcohol also seems to have some inverse correlation with density, where the alcohol makes the wine slightly less dense.
+
+There is an unusual pattern, where some values of very low quality wines are almost the same of good quality wines, as seen in volatile.acidity x Quality; pH x Quality; free.sulfur.dioxide; citric.acid x Quality.
+
+Using a third variable in the plot might help seeing the relation of these variables.
 
 # Multivariate
 
