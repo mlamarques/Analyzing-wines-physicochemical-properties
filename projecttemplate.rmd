@@ -61,8 +61,11 @@ This is an interesting [Vox video](https://www.youtube.com/watch?v=mVKuCbjFfIY) 
 
 For this project, I will use the white wine (winequality-white.csv) dataset.
 
-# Data Analysis
-## White Wine Dataset
+# Data Analysis - White Wine Dataset
+
+***
+
+# Univariate
 
 
 ```{r echo=FALSE, summary}
@@ -70,6 +73,7 @@ For this project, I will use the white wine (winequality-white.csv) dataset.
 summary(white)
 
 ```
+
 Dataset summary
 
 ```{r echo=FALSE, Structure}
@@ -77,6 +81,7 @@ Dataset summary
 str(white)
 
 ```
+
 This is the structure of the dataset
 
 ```{r echo=FALSE, Head}
@@ -84,6 +89,7 @@ This is the structure of the dataset
 head(white)
 
 ```
+
 These are the first 6 rows of each variable
 
 ```{r echo=FALSE, correlation_quality}
@@ -91,10 +97,10 @@ These are the first 6 rows of each variable
 cor(white[,2:12], white$quality)
 
 ```
+
 The correlation between each variable and quality 
 
-
-```{r echo=FALSE, message=FALSE, warning=FALSE, Univariate_Plots}
+```{r echo=FALSE, message=FALSE, warning=FALSE, Univariate_quality}
 
 ggplot(aes(x = quality), data = white) +
   geom_bar(fill = "#8989ff") +
@@ -103,9 +109,6 @@ ggplot(aes(x = quality), data = white) +
 ```
 
 Most wines have a quality of 6 and the best variable for quality correlation is alcohol.
-
-
-## Alcohol
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE, hist_alcohol}
 
@@ -117,7 +120,19 @@ ggplot(aes(x = alcohol), data = white) +
 
 The histogram of alcohol
 
-> Let's create a new column with the quality values as labels so we can create a boxplot by quality.
+***
+
+There are 4898 observations for this dataset (not so large) and all variables are numbers, except for the quality variable, which is an integer. Later I'll transform the quality variable to factor, so it can be treated as a label. 
+
+The residual sugar has some unusual distribution, where there is a high peak below 5 g/dm3, and also the alcohol seems to have a more low variance distribution. 
+
+For the quality distribution, the majority of values are between 5 and 7, and very small quantities for the remaining score values, making it a low variance distribution. This is an indication that most of these brand wines have a good score.
+
+The correlation of the variables with quality shows that these variables don't have a high value. The highest value is 0.44 for alcohol and then the inverse correlation with density (-0.31). These variables might be the best for the analysis.
+
+# Bivariate
+
+### Let's create a new column with the quality values as labels so we can create a boxplot by quality.
 
 ```
 white$scale <- as.factor(white$quality)
@@ -139,6 +154,7 @@ ggplot(aes(factor(quality),
   xlab("Quality")
 
 ```
+
 
 > There is a clear indication of the correlation of alcohol and quality above the score of 6 
 
@@ -173,8 +189,6 @@ ggpairs(white[sample.int(nrow(white), 1000), ]) ##TAKES SOME TIME DO RUN
 
 ```
 
-## Bivariate
-
 ### Citric Acid x Quality:
 ```{r echo=FALSE, message=FALSE, warning=FALSE, citric.acid}
 
@@ -193,7 +207,7 @@ ggplot(aes(factor(quality),
 
 ```
 
-Most values of Citric Acid are in the same range, but in the score of 9 it seem to be a bit higher.
+Most values of Citric Acid are in the same range, but in the score of 9 it seems to be a bit higher.
 
 ### Free sulfur dioxide x Quality:
 ```{r echo=FALSE, message=FALSE, warning=FALSE, freesulfurdioxide}
@@ -324,7 +338,7 @@ ggplot(aes(x = chlorides, y = residual.sugar), data = white) +
 
 ```
 
-## Multivariate
+# Multivariate
 
 ### First Plot
 
