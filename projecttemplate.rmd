@@ -190,7 +190,7 @@ ggpairs(white[sample.int(nrow(white), 1000), ]) ##TAKES SOME TIME DO RUN
 
 ```
 
-```{r echo=FALSE, message=FALSE, warning=FALSE, Alcohol_x_density}
+```{r echo=FALSE, message=FALSE, warning=FALSE, bi_Alcohol_x_density}
 
 ggplot(aes(x = density, y = alcohol), data = white) +
     geom_point(position = 'jitter', color = "#46003d", alpha = 1/5) +
@@ -201,7 +201,16 @@ ggplot(aes(x = density, y = alcohol), data = white) +
 
 ```
 
+This plot has a good correlation, where the data is well distributed along the smooth line, and has a good inverse slope.
+
+``` {r warning=FALSE, cor_Alcohol_x_density}
+
+cor(white$alcohol, white$density)
+
+```
+
 ### Citric Acid x Quality:
+
 ```{r echo=FALSE, message=FALSE, warning=FALSE, citric.acid}
 
 ggplot(aes(factor(quality), 
@@ -367,11 +376,11 @@ Here, the residual.sugar doesn't look to be affected by the Chlorides, where mos
 
 ***
 
-Using the Bivariate plots, the most distinct values of variables are found in the alcohol x quality plot. High quality values tend to have a high % of alcohol. Alcohol also seems to have some inverse correlation with density, where the alcohol makes the wine slightly less dense.
+Using the Bivariate plots, the strongest relationship found was the alcohol x density (-0.78). High quality values tend to have a high % of alcohol and lower density. These variables might be the most influencial for the tests of quality.
 
 There is an unusual pattern, where some values of very low quality wines are almost the same of good quality wines, as seen in volatile.acidity x Quality; pH x Quality; free.sulfur.dioxide; citric.acid x Quality.
 
-Using a third variable in the plot might help seeing the relation of these variables.
+Using a third variable in the plot might help seeing better the relation of these variables with quality.
 
 # Multivariate
 
