@@ -509,8 +509,8 @@ In this plot the correlation between the variables is low but the regression lin
 
 # Final Plots and Summary
 
-### Plot One
-```{r echo=FALSE, fig.width=8, fig.height=5, Plot_One}
+## Plot One
+```{r echo=FALSE, fig.width=10, fig.height=10, Plot_One}
 
 ggplot(aes(x = scale, y = alcohol), data = white) +
     geom_point(position = 'jitter', color = "#46003d", alpha = 1/5) +
@@ -523,8 +523,8 @@ ggplot(aes(x = scale, y = alcohol), data = white) +
 
 ### This was my first plot because of the quick alanysis of the correlation between the variables and quality. Alcohol got a score well above the others.  I think it is a good plot because it shows a direct influence of a substance in the quality of white wines.
 
-### Plot Two
-```{r echo=FALSE, fig.width=8, fig.height=5, Plot_Two}
+## Plot Two
+```{r echo=FALSE, warning=FALSE, fig.width=10, fig.height=10, Plot_Two}
 
 ggplot(aes(x = residual.sugar, y = density, color = scale), data = white) +
   geom_point(position = 'jitter') +
@@ -540,8 +540,8 @@ ggplot(aes(x = residual.sugar, y = density, color = scale), data = white) +
 
 ### For me this plot has the best correlation between the variables and it shows clearly a separation of good and bad wines. Also the regression line for the quality value of 9 indicates a very good correlation between Density and Residual sugar. I would strongly recommend to use this plot for selecting a good white wine (with a high value of alcohol, of course).
 
-### Plot Three
-```{r echo=FALSE, fig.width=8, fig.height=5, Plot_Three}
+## Plot Three
+```{r echo=FALSE, fig.width=10, fig.height=10, Plot_Three}
 
 ggplot(aes(x = volatile.acidity, y = pH, color = scale), data = white) + 
   geom_point(position = 'jitter') +
@@ -554,7 +554,8 @@ ggplot(aes(x = volatile.acidity, y = pH, color = scale), data = white) +
 ```
 
 ### This plot was the one that I've got the most surprised. It was the first one the I notice a clear oposite correlation for the extreme values of quality. Even though this plot gives some good insight, I wouldn't use it for making decisions because the distribution of quality is very low for this values and the bulk of the data is in the 5-7 range.
-------
+
+************************
 
 # Reflection
 
@@ -562,7 +563,7 @@ These are only the most noticeable physical features that could influence the qu
 
 Even though the dataset is not so large and wine quality classification is very subjective, there are some correlations between the physicochemical properties that we can notice. The most noticeable is the alcohol %. Higher quality wines have a higher percentage of alcohol, which is correlated with lower density and a lower residual sugar proportion. All of these features must have a considerable impact on the color, smell, and taste of the wine.
 
-These are values range I would pick for describing a good whine:
+These are values range I would pick for selecting a good whine:
 
 - Fixed acidity: 6-7 g(tartaric acid)/dm3
 - Volatile acidity: 0.20-0.35 g(acetic acid)/dm3
