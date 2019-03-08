@@ -402,7 +402,7 @@ ggplot(aes(x = alcohol, y = density, color = scale), data = white) +
 
 ```
 
-This plot shows the inverse correlation between density and alcohol and a good color distinguish where most of the best wines are above 11% alcohol and 0.993 density.
+This plot shows the inverse correlation between density and alcohol and a good color distinguish where most of the best wines are above 11% alcohol and 0.993 density. The regression line for the wines with quality iquals nine, looks to have a strong correlation for these variables, close to one.
 
 
 ## Density x Residual Sugar
@@ -418,7 +418,7 @@ ggplot(aes(x = residual.sugar, y = density, color = scale), data = white) +
 
 ```
 
-In the second Multivariate plot, we can see the density and residual.sugar correlation. There is a nice distinction of colors, separated by the smooth line. Most higher quality wines are below the line, thus we might argue that testers prefer a higher residual.sugar/density ratio.
+In the second Multivariate plot, we can see the density and residual.sugar correlation. There is a nice distinction of colors, separated by the smooth line. Most higher quality wines are below the line, thus we might argue that testers prefer a higher residual.sugar/density ratio. In this plot the score of nine also has a better corellation for the variables (looks close to 1).
 
 ###  Sugar x pH
 
@@ -433,7 +433,7 @@ ggplot(aes(x = residual.sugar, y = pH, color = scale), data = white) +
 
 ```
 
-This plot does not add much value for the analysis. The smoth line doesn't have a good slope and the colors are randomly distributed, with no pattern.
+This plot does not add much value for the analysis. The regression lines don't have such a good slope and the colors are randomly distributed, with no well defined pattern, though the regression line for nine is separate from the rest.
 
 ###  Citric Acid and pH
 
@@ -446,7 +446,7 @@ ggplot(aes(x = citric.acid, y = pH, color = scale), data = white) +
   ggtitle('pH by Citric Acid and Quality')
 ```
 
-Here we can see that there is a interval in the Citric Acid Above 0.25 and below 0.5 where the wine quality is considerably higher and the pH doesn't interfere so much.
+Here we can see that there is a interval in the Citric Acid Above 0.25 and below 0.5 where the wine quality is considerably higher and the pH doesn't interfere so much. The reggresion lines show some correlation for the score of eight, inverse correlation for seven and 4, and good inverse correlation for scores of 3 . This might indicate that low values of citric acid are found in low quality wines.
 
 ## Total Sulfur Dioxide x Free Sulfur Dioxide
 
@@ -462,7 +462,7 @@ ggplot(aes(x = free.sulfur.dioxide, y = total.sulfur.dioxide, color = scale), da
 
 ```
 
-Some correlation is notible between these two variables. We can distinguish an area where there is a concentration of most green dots, below the smooth line and 25 < free.sulfur.dioxide < 50, that are also below the smooth line, wich indicates a preference for a higher free.sulfur.dioxide/total.sulfur.dioxide ratio. Maybe there is some stage in the process of winemaking that directs affects this.
+Some correlation is notible between these two variables. We can distinguish an area where there is a concentration of most green dots, in the lower part of the scatter points, wich indicates a preference for a higher free.sulfur.dioxide/total.sulfur.dioxide ratio. Maybe there is some stage in the process of winemaking that directs affects this. There is a interesting information about the regression line of scores of nine, where it is almost horizontal. Maybe really good quality wines don't get affected by this correlation.
 
 ### pH x Alcohol
 
@@ -477,22 +477,21 @@ ggplot(aes(x = alcohol, y = pH, color = scale), data = white) +
 
 ```
 
-In this plot, the correlation between pH and alcohol is almost inexisting, and the quality is guided mainly by the alcohol quantity.
+In this plot, the correlation between pH and alcohol is very low, and the quality is guided mainly by the alcohol quantity. Again we can notice that quality values iqual nine have some correlation with these variables.
 
-### pH x Residual Sugar
+### pH x Volatile Acidity
 
 ```{r echo=FALSE,  message=FALSE, warning=FALSE, residualxpH}
 
-ggplot(aes(x = residual.sugar, y = pH, color = scale), data = white) + 
+ggplot(aes(x = volatile.acidity, y = pH, color = scale), data = white) + 
   geom_point(position = 'jitter') +
   scale_color_brewer(type = 'div', guide = guide_legend(title = 'Quality')) +
   geom_smooth(method = "lm", se = FALSE,size=1) +
-  xlim(0, 25) +
-  ggtitle('pH by Residual Sugar and Quality')
+  ggtitle('pH by Volatile Acidity and Quality')
 
 ```
 
-There is no clear indication of any of these variables having a relevant influence in the wine quality.
+In this plot I was surprise by this noticeable distinction. For the extreme values of quality (3 and 9), these variables have an oposite regression line. The best quality wines have a correlation of pH and Volatile Acidity positive and the lowest quality wines have an inverse correlation, and the other values don't have expressive correlations. Also there are some color region distinction for the data points.
 
 ### pH x sulphates
 
@@ -506,12 +505,75 @@ ggplot(aes(x = sulphates, y = pH, color = scale), data = white) +
 
 ```
 
-In this plot we can see againg that pH has almost no effect in the quality of wines.
+In this plot the correlation between the variables is low but the regression line for nine separates from the rest and there is the oposite correlation for the extreme values of quality.
+
+# Final Plots and Summary
+
+### Plot One
+```{r echo=FALSE, fig.width=8, fig.height=5, Plot_One}
+
+ggplot(aes(x = scale, y = alcohol), data = white) +
+    geom_point(position = 'jitter', color = "#46003d", alpha = 1/5) +
+    geom_smooth(method='lm', aes(group = 1), color = "cyan") +
+    ggtitle('Wine Quality by Alcohol Content') +
+    xlab("Wine Quality") +
+    ylab("Alcohol [%]")
+
+```
+
+### This was my first plot because of the quick alanysis of the correlation between the variables and quality. Alcohol got a score well above the others.  I think it is a good plot because it shows a direct influence of a substance in the quality of white wines.
+
+### Plot Two
+```{r echo=FALSE, fig.width=8, fig.height=5, Plot_Two}
+
+ggplot(aes(x = residual.sugar, y = density, color = scale), data = white) +
+  geom_point(position = 'jitter') +
+  scale_color_brewer(type = 'div', guide = guide_legend(title = 'Quality')) +
+  xlim(0, 20) +  ylim(0.987,1.002) +
+  geom_smooth(method = "lm", se = FALSE,size=1) +
+  ggtitle('Density by Residual Sugar and Quality') +
+  xlab("Residual Sugar [g/dm3]") +
+  ylab("Density [g/cm3]")
+  
+
+```
+
+### For me this plot has the best correlation between the variables and it shows clearly a separation of good and bad wines. Also the regression line for the quality value of 9 indicates a very good correlation between Density and Residual sugar. I would strongly recommend to use this plot for selecting a good white wine (with a high value of alcohol, of course).
+
+### Plot Three
+```{r echo=FALSE, fig.width=8, fig.height=5, Plot_Three}
+
+ggplot(aes(x = volatile.acidity, y = pH, color = scale), data = white) + 
+  geom_point(position = 'jitter') +
+  scale_color_brewer(type = 'seq', guide = guide_legend(title = 'Quality')) +
+  geom_smooth(method = "lm", se = FALSE,size=1) +
+  ggtitle('pH by Volatile Acidity and Quality') +
+  xlab("Volatile Acidity [g(tartaric acid)/dm3]") +
+  ylab("pH")
+
+```
+
+### This plot was the one that I've got the most surprised. It was the first one the I notice a clear oposite correlation for the extreme values of quality. Even though this plot gives some good insight, I wouldn't use it for making decisions because the distribution of quality is very low for this values and the bulk of the data is in the 5-7 range.
+------
 
 # Reflection
 
 These are only the most noticeable physical features that could influence the quality of white wines found on this dataset. There are many other variables that could have an influence on the quality of a wine. I used the ggpairs function to help me find the most relevant features.
 
 Even though the dataset is not so large and wine quality classification is very subjective, there are some correlations between the physicochemical properties that we can notice. The most noticeable is the alcohol %. Higher quality wines have a higher percentage of alcohol, which is correlated with lower density and a lower residual sugar proportion. All of these features must have a considerable impact on the color, smell, and taste of the wine.
+
+These are values range I would pick for describing a good whine:
+
+- Fixed acidity: 6-7 g(tartaric acid)/dm3
+- Volatile acidity: 0.20-0.35 g(acetic acid)/dm3
+- Citric acid: 0.25-0.50 g/dm3
+- Residual sugar: 1-6 g/dm3
+- Chlorides: 0.03-0.04 g(sodium chloride)/dm3
+- Free sulfur dioxide: 30-50 mg/dm3
+- Total sulfur dioxide: 100-120 mg/dm3
+- Density: 0.988-0.991 g/cm3
+- pH: 3.2-3.3
+- Sulphates:0.4-0.8 g(potassium sulphate)/dm3
+- Alcohol: above 11 % vol.
 
 In addition to this project, it would be interesting to use some machine learning algorithm to analyze this dataset and also analyze the red wine dataset for comparison.
