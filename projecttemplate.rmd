@@ -124,6 +124,8 @@ The histogram of alcohol
 
 There are 4898 observations for this dataset (not so large) and all variables are numbers, except for the quality variable, which is an integer. Later I'll transform the quality variable to factor, so it can be treated as a label. 
 
+For this analysis I'm not considering the outliers, so I can make the analysis more robust.
+
 The residual sugar has some unusual distribution, where there is a high peak below 5 g/dm3, and also the alcohol seems to have a more low variance distribution. 
 
 For the quality distribution, the majority of values are between 5 and 7, and very small quantities for the remaining score values, making it a low variance distribution. This is an indication that most of these brand wines have a good score.
@@ -182,11 +184,14 @@ cor(white$alcohol, white$quality)
 
 using the ggpair function we can have a look on all the relations between the variables
 
-```{r echo=FALSE,  message=FALSE, warning=FALSE, ggpairs}
+```{r echo=FALSE,  message=FALSE, warning=FALSE, fig.width=10, fig.height=10, ggpairs}
 #space
 
 set.seed(1990)
-ggpairs(white[sample.int(nrow(white), 1000), ]) ##TAKES SOME TIME DO RUN
+ggpairs(white[sample.int(nrow(white), 1000), ], upper = list(continuous = wrap("cor", size = 4))) +
+  theme(axis.text = element_blank())##TAKES SOME TIME DO RUN
+
+ggcorr(white)
 
 ```
 
@@ -392,7 +397,7 @@ ggplot(aes(x = alcohol, y = density, color = scale), data = white) +
   geom_point(position = 'jitter') +
   scale_color_brewer(type = 'div', guide = guide_legend(title = 'Quality')) +
   ylim(0.987,1.003) +
-  geom_smooth(method = 'lm', color = 'purple') +
+  geom_smooth(method = "lm", se = FALSE,size=1) +
   ggtitle('Density by Alcohol and Quality')
 
 ```
@@ -408,7 +413,7 @@ ggplot(aes(x = residual.sugar, y = density, color = scale), data = white) +
   geom_point(position = 'jitter') +
   scale_color_brewer(type = 'div', guide = guide_legend(title = 'Quality')) +
   xlim(0, 20) +  ylim(0.987,1.002) +
-  geom_smooth(method = 'lm', color = 'purple') +
+  geom_smooth(method = "lm", se = FALSE,size=1) +
   ggtitle('Density by residual.sugar and Quality')
 
 ```
@@ -422,7 +427,7 @@ In the second Multivariate plot, we can see the density and residual.sugar corre
 ggplot(aes(x = residual.sugar, y = pH, color = scale), data = white) + 
   geom_point(position = 'jitter') +
   scale_color_brewer(type = 'div', guide = guide_legend(title = 'Quality')) +
-  geom_smooth(method = 'lm', color = 'purple') +
+  geom_smooth(method = "lm", se = FALSE,size=1) +
   xlim(0, 20) +
   ggtitle('pH by Residual Sugar and Quality')
 
@@ -437,7 +442,7 @@ This plot does not add much value for the analysis. The smoth line doesn't have 
 ggplot(aes(x = citric.acid, y = pH, color = scale), data = white) + 
   geom_point(position = 'jitter') +
   scale_color_brewer(type = 'div', guide = guide_legend(title = 'Quality')) +
-  geom_smooth(method = 'lm', color = 'purple') +
+  geom_smooth(method = "lm", se = FALSE,size=1) +
   ggtitle('pH by Citric Acid and Quality')
 ```
 
@@ -452,7 +457,7 @@ ggplot(aes(x = free.sulfur.dioxide, y = total.sulfur.dioxide, color = scale), da
   xlim(0, 100) +
   ylim(0, 280) +
   scale_color_brewer(type = 'div', guide = guide_legend(title = 'Quality')) +
-  geom_smooth(method = 'lm', color = 'purple') +
+  geom_smooth(method = "lm", se = FALSE,size=1) +
   ggtitle('Total.sulfur.dioxide by free.sulfur.dioxide and Quality')
 
 ```
@@ -467,7 +472,7 @@ ggplot(aes(x = alcohol, y = pH, color = scale), data = white) +
   geom_point(position = 'jitter') +
   scale_color_brewer(type = 'div', guide = guide_legend(title = 'Quality')) +
  # ylim(0.987,1.003)
-  geom_smooth(method = 'lm', color = '#c32148') +
+  geom_smooth(method = "lm", se = FALSE,size=1) +
   ggtitle('pH by Alcohol and Quality')
 
 ```
@@ -481,7 +486,8 @@ In this plot, the correlation between pH and alcohol is almost inexisting, and t
 ggplot(aes(x = residual.sugar, y = pH, color = scale), data = white) + 
   geom_point(position = 'jitter') +
   scale_color_brewer(type = 'div', guide = guide_legend(title = 'Quality')) +
-  xlim(0, 25)
+  geom_smooth(method = "lm", se = FALSE,size=1) +
+  xlim(0, 25) +
   ggtitle('pH by Residual Sugar and Quality')
 
 ```
@@ -490,11 +496,12 @@ There is no clear indication of any of these variables having a relevant influen
 
 ### pH x sulphates
 
-```{r echo=FALSE,  message=FALSE, warning=FALSE, residualxpH}
+```{r echo=FALSE,  message=FALSE, warning=FALSE, sulphatesxpH}
 
 ggplot(aes(x = sulphates, y = pH, color = scale), data = white) + 
   geom_point(position = 'jitter') +
   scale_color_brewer(type = 'div', guide = guide_legend(title = 'Quality')) +
+  geom_smooth(method = "lm", se = FALSE,size=1) +
   ggtitle('pH by Sulphates and Quality')
 
 ```
