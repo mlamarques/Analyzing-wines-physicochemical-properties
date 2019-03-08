@@ -132,7 +132,7 @@ The correlation of the variables with quality shows that these variables don't h
 
 # Bivariate
 
-### Let's create a new column with the quality values as labels so we can create a boxplot by quality.
+#### Let's create a new column with the quality values as labels so we can create a boxplot by quality.
 
 ```
 white$scale <- as.factor(white$quality)
@@ -318,7 +318,7 @@ ggplot(aes(x = sulphates, y = pH), data = white) +
 
 ```
 
-In this plot the distribution of data looks a bit better. Maybe using another variable we'll be able to find some pattern.
+In this plot the distribution of data looks a bit better. These three plots of the relation of pH with other variables confirms that most correlations of pH are low. Maybe using another variable we'll be able to find some pattern. 
 
 ### Volatile Acidity x Quality:
 
@@ -384,7 +384,7 @@ Using a third variable in the plot might help seeing better the relation of thes
 
 # Multivariate
 
-### First Plot
+### Density x Alcohol
 
 ```{r echo=FALSE,  message=FALSE, warning=FALSE, alcohol_x_density}
 
@@ -397,10 +397,10 @@ ggplot(aes(x = alcohol, y = density, color = scale), data = white) +
 
 ```
 
-In this plot an inverse correlation between density and alcohol, where the best quality tends to have more alcohol and be less dense.
+This plot shows the inverse correlation between density and alcohol and a good color distinguish where most of the best wines are above 11% alcohol and 0.993 density.
 
 
-## Second Plot
+## Density x Residual Sugar
 
 ```{r echo=FALSE,  message=FALSE, warning=FALSE, residual.sugar_x_density}
 
@@ -413,10 +413,9 @@ ggplot(aes(x = residual.sugar, y = density, color = scale), data = white) +
 
 ```
 
-In the second plot, we can see the density and residual.sugar correlation. There is a nice distinction of colors, separate by the smooth line. Most higher quality wines are below the line.
+In the second Multivariate plot, we can see the density and residual.sugar correlation. There is a nice distinction of colors, separated by the smooth line. Most higher quality wines are below the line, thus we might argue that testers prefer a higher residual.sugar/density ratio.
 
-
-###  Sugar and pH
+###  Sugar x pH
 
 ```{r echo=FALSE,  message=FALSE, warning=FALSE, sugar_pH_quality}
 
@@ -429,6 +428,7 @@ ggplot(aes(x = residual.sugar, y = pH, color = scale), data = white) +
 
 ```
 
+This plot does not add much value for the analysis. The smoth line doesn't have a good slope and the colors are randomly distributed, with no pattern.
 
 ###  Citric Acid and pH
 
@@ -441,9 +441,9 @@ ggplot(aes(x = citric.acid, y = pH, color = scale), data = white) +
   ggtitle('pH by Citric Acid and Quality')
 ```
 
-Here we can see that there is a interval in the Citric Acid Above 0.25 and below 0.5 where the quality is higher and the pH doesn't interfere so much.
+Here we can see that there is a interval in the Citric Acid Above 0.25 and below 0.5 where the wine quality is considerably higher and the pH doesn't interfere so much.
 
-## Third Plot
+## Total Sulfur Dioxide x Free Sulfur Dioxide
 
 ```{r echo=FALSE,  message=FALSE, warning=FALSE, totalSO2_x_freeSO2}
 
@@ -457,9 +457,9 @@ ggplot(aes(x = free.sulfur.dioxide, y = total.sulfur.dioxide, color = scale), da
 
 ```
 
-In the third plot, we have a small correlation and the quality of wines are more clumped together. But we can distinguish an area where there is a concentration of most green dots, below the smooth line and 25 < free.sulfur.dioxide < 50. 
+Some correlation is notible between these two variables. We can distinguish an area where there is a concentration of most green dots, below the smooth line and 25 < free.sulfur.dioxide < 50, that are also below the smooth line, wich indicates a preference for a higher free.sulfur.dioxide/total.sulfur.dioxide ratio. Maybe there is some stage in the process of winemaking that directs affects this.
 
-### Fourth Plot
+### pH x Alcohol
 
 ```{r echo=FALSE,  message=FALSE, warning=FALSE, alcohol_x_pH}
 
@@ -472,22 +472,34 @@ ggplot(aes(x = alcohol, y = pH, color = scale), data = white) +
 
 ```
 
-In the fourth plot, the correlation between pH and alcohol is almost inexisting, and the quality is guided mainly by the alcohol quantity.
+In this plot, the correlation between pH and alcohol is almost inexisting, and the quality is guided mainly by the alcohol quantity.
 
-### Fifth Plot
+### pH x Residual Sugar
 
-```{r echo=FALSE,  message=FALSE, warning=FALSE, density_x_pH}
+```{r echo=FALSE,  message=FALSE, warning=FALSE, residualxpH}
 
-ggplot(aes(x = density, y = pH, color = scale), data = white) + 
+ggplot(aes(x = residual.sugar, y = pH, color = scale), data = white) + 
   geom_point(position = 'jitter') +
   scale_color_brewer(type = 'div', guide = guide_legend(title = 'Quality')) +
-  xlim(0.987,1.003) +
-  ggtitle('pH by Density and Quality')
+  xlim(0, 25)
+  ggtitle('pH by Residual Sugar and Quality')
+
+```
+
+There is no clear indication of any of these variables having a relevant influence in the wine quality.
+
+### pH x sulphates
+
+```{r echo=FALSE,  message=FALSE, warning=FALSE, residualxpH}
+
+ggplot(aes(x = sulphates, y = pH, color = scale), data = white) + 
+  geom_point(position = 'jitter') +
+  scale_color_brewer(type = 'div', guide = guide_legend(title = 'Quality')) +
+  ggtitle('pH by Sulphates and Quality')
 
 ```
 
 In this plot we can see againg that pH has almost no effect in the quality of wines.
-
 
 # Reflection
 
