@@ -21,7 +21,7 @@ I'm using the public dataset **Wine Quality Datasets** - P. Cortez, A. Cerdeira,
 F. Almeida, T. Matos and J. Reis. Modeling wine preferences by data mining from
 physicochemical properties. In Decision Support Systems, Elsevier,
 47(4):547-553, 2009. It contains two datasets, one for red wines and another
-for white wines.
+for white wines. In this project I'm using the white wine dataset.
 
 The dataset uses the measurements of 13 chemical constituents from
 [Vinho Verde Wines](http://www.vinhoverde.pt/), a wine brand from the northwest
